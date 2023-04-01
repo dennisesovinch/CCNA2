@@ -1,6 +1,6 @@
 !@@@LeafSwitchONLY
 config t
-   hostname COREbaba11
+   hostname COREbaba_
    enable secret pass
    service password-encryption
    no logging console
@@ -16,56 +16,74 @@ config t
    Int Gi 0/1
      no shutdown
 	  no switchport
-	  ip add 10.11.11.4 255.255.255.0
+	  ip add 10._.1.4 255.255.255.0
    Int Vlan 1
      no shutdown
-	 ip add 10.11.1.4 255.255.255.0
+	 ip add 10._.1.4 255.255.255.0
 	 description MGMTDATA
    Int Vlan 10
      no shutdown
-	 ip add 10.11.10.4 255.255.255.0
+	 ip add 10._.10.4 255.255.255.0
 	 description WIRELESS
+   Int Vlan 50
+     no shutdown
+	 ip add 10._.50.4 255.255.255.0
+	 description IPCCTV
    Int Vlan 100
      no shutdown
-	 ip add 10.11.100.4 255.255.255.0
+	 ip add 10._.100.4 255.255.255.0
 	 description VOICEVLAN
 	 
 !DHCP: DYNAMIC HOST CONFIGURATION PROTOCOL
 !@@@LEAF SWITCH
 config t
-ip dhcp Excluded-add 10.11.1.1 10.11.1.100
-ip dhcp Excluded-add 10.11.10.1 10.11.10.100
-ip dhcp Excluded-add 10.11.100.1 10.11.100.100
+ip dhcp Excluded-add 10._.1.1 10._.1.100
+ip dhcp Excluded-add 10._.10.1 10._.10.100
+ip dhcp Excluded-add 10._.50.1 10._.50.100
+ip dhcp Excluded-add 10._.100.1 10._.100.100
 ip dhcp pool MGMTDATA
-   network 10.11.1.0 255.255.255.0
-   default-router 10.11.1.4
+   network 10._.1.0 255.255.255.0
+   default-router 10._.1.4
    domain-name MGMTDATA.COM
-   dns-server 10.11.1.10
+   dns-server 10._.1.10
 ip dhcp pool WIFIDATA
-   network 10.11.10.0 255.255.255.0
-   default-router 10.11.10.4
+   network 10._.10.0 255.255.255.0
+   default-router 10._.10.4
    domain-name WIFIDATA.COM
-   dns-server 10.11.1.10
+   dns-server 10._.1.10
+ip dhcp pool IPCCTV
+   network 10._.50.0 255.255.255.0
+   default-router 10._.50.4
+   domain-name IPCCTV.COM
+   dns-server 10._.1.10
 ip dhcp pool VOICEVLAN
-   network 10.11.100.0 255.255.255.0
-   default-router 10.11.100.4
+   network 10._.100.0 255.255.255.0
+   default-router 10._.100.4
    domain-name VOICEVLAN.COM
-   dns-server 10.11.1.10
-   option 150 ip 10.11.100.8   
+   dns-server 10._.1.10
+   option 150 ip 10._.100.8   
    END
 
 !!CREATING AND PLACING PORTS INSIDEAVLAN:
 config t
 vlan 10
-   name wifivlanrobert
+   name WIFIVLAN
+vlan 50
+   name IPCCTVLAN
 vlan 100
-   name voicevlandito
+   name VOICEVLAN
 Int Fa 0/2
   switchport mode access
   switchport access vlan 10  
 Int Fa 0/4
   switchport mode access
-  switchport access vlan 10    
+  switchport access vlan 10
+Int Fa 0/6
+  switchport mode access
+  switchport access vlan 50  
+Int Fa 0/8
+  switchport mode access
+  switchport access vlan 50    
 Int Fa 0/3
   switchport mode access
   switchport access vlan 100     
@@ -95,22 +113,22 @@ config t
       exec-timeout 0 0
    Int Fa 0/0
      no shutdown
-	 ip add 10.11.100.8 255.255.255.0 
+	 ip add 10._.100.8 255.255.255.0 
 	 end
    
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern 1100
+   destination-pattern _00
    port 0/0/0
 dial-peer voice 2 pots
-   destination-pattern 1101
+   destination-pattern _01
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern 1102
+   destination-pattern _02
    port 0/0/2
 dial-peer voice 4 pots
-   destination-pattern 1103
+   destination-pattern _03
    port 0/0/3
 end
 
@@ -122,31 +140,31 @@ telephony-service
    no auto-reg-ephone
    max-ephones 5
    max-dn 20
-   ip source-address 10.11.100.8 port 2000
+   ip source-address 10._.100.8 port 2000
    create cnf-files
 ephone-dn 1
-  number 1111
+  number _11
 ephone-dn 2
-  number 1122
+  number _22
 ephone-dn 3
-  number 1133
+  number _33
 ephone-dn 4
-  number 1144
+  number _44
 ephone-dn 5
-  number 1155
+  number _55
 ephone-dn 6
-  number 1166
+  number _66
 ephone-dn 7
-  number 1177
+  number _77
 ephone-dn 8
-  number 1188	
+  number _88	
 Ephone 1
-  Mac-address ccd8.c1fb.1045
+  Mac-address ____.____.____
   type 8945
   button 1:1 2:3 3:2 4:4
   restart
 Ephone 2
-  Mac-address ccd8.c1fb.2325
+  Mac-address ____.____.____
   type 8945
   button 1:5 2:6 3:7 4:8
   restart  
@@ -233,15 +251,15 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10.m.m.1 255.255.255.0
+     ip add 10._._.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0.m 255.255.255.0
+	 ip add 200.0.0._ 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add m.0.0.1 255.255.255.255
+	 ip add _.0.0.1 255.255.255.255
  end
 
  
@@ -392,31 +410,4 @@ exit
           
 sip-ua
 sip-server ipv4:192.168.k.1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
