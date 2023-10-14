@@ -232,6 +232,30 @@ dial-peer voice 52 Voip
  destination-pattern 52..
  session target ipv4:10.52.100.8
  codec g711ULAW
+dial-peer voice 61 Voip
+ destination-pattern 61..
+ session target ipv4:10.61.100.8
+ codec g711ULAW
+dial-peer voice 62 Voip
+ destination-pattern 62..
+ session target ipv4:10.62.100.8
+ codec g711ULAW
+dial-peer voice 71 Voip
+ destination-pattern 71..
+ session target ipv4:10.71.100.8
+ codec g711ULAW
+dial-peer voice 72 Voip
+ destination-pattern 72..
+ session target ipv4:10.72.100.8
+ codec g711ULAW
+dial-peer voice 81 Voip
+ destination-pattern 81..
+ session target ipv4:10.81.100.8
+ codec g711ULAW
+dial-peer voice 82 Voip
+ destination-pattern 82..
+ session target ipv4:10.82.100.8
+ codec g711ULAW
 
 @@@@@@
 !@@@EDGE ROUTE CONFIG
@@ -264,7 +288,9 @@ config t
 
  
  !!! EDGE route NOT dikit to ClassMate:
- !ip route 10.11.0.0 255.255.0.0 200.0.0.11
+  conf t
+ ip routing 
+!ip route 10.11.0.0 255.255.0.0 200.0.0.11
  ip route 10.12.0.0 255.255.0.0 200.0.0.12
  ip route 10.21.0.0 255.255.0.0 200.0.0.21
  ip route 10.22.0.0 255.255.0.0 200.0.0.22
@@ -274,12 +300,31 @@ config t
  ip route 10.42.0.0 255.255.0.0 200.0.0.42
  ip route 10.51.0.0 255.255.0.0 200.0.0.51
  ip route 10.52.0.0 255.255.0.0 200.0.0.52
+ ip route 10.61.0.0 255.255.0.0 200.0.0.61
+ ip route 10.62.0.0 255.255.0.0 200.0.0.62
+ ip route 10.71.0.0 255.255.0.0 200.0.0.71
+ ip route 10.81.0.0 255.255.0.0 200.0.0.81
+ ip route 10.82.0.0 255.255.0.0 200.0.0.82
+ ip route 10._.0.0 255.255.0.0 10._._.4
  end
  
- 
- 
- 
+*********************************************
+ROUTING 
+@SWITCH/COREBABA
+conf t 
+ip routing
+ip route 0.0.0.0 0.0.0.0 10._._.1
+end
 
+@CUCM
+conf t
+ip routing
+ip route 0.0.0.0 0.0.0.0 10._.100.4
+end
+
+********************************************
+
+ 
 @@@@@@@@@
 
 config t
