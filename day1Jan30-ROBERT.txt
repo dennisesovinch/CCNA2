@@ -98,7 +98,7 @@ Int Fa 0/7
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
-   hostname CUCM-11
+   hostname CUCM-_
    enable secret pass
    service password-encryption
    no logging console
@@ -260,7 +260,7 @@ dial-peer voice 82 Voip
 @@@@@@
 !@@@EDGE ROUTE CONFIG
 config t
-   hostname EDGE-12
+   hostname EDGE_
    enable secret pass
    service password-encryption
    no logging console
