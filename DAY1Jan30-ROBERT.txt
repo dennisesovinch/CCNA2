@@ -364,7 +364,35 @@ application
   param aa-hunt4 1155
   param queue-manager-debugs 1
   param number-of-hunt-grps 4
-*************************************************
+****************************************************************************
+INSTALL DNS - DOMAIN NAME SERVER
+
+OPEN CMD
+
+Powershell
+Remove-WindowsFeature -name dns
+!
+Install-WindowsFeature -name dns -includeManagementTools
+
+****************************************************************************
+TURN OFF Firewall:
+
+powershell
+Set-NetfirewallProfile -name public,private,domain -enabled false
+
+****************************************************************************
+WEB SERVER
+
+OPEN CMD
+
+powershell
+Remove-WindowsFeature  -name  web-server
+
+Install-WindowsFeature -name web-server -includeManagementTools
+
+New-Website -name "CCNA" -hostheader "www.website.com" -physicalpath "d:\webs\datingbiz" -force
+****************************************************************************
+
 show call application sessions
 call application session stop id 17
 how to clean
