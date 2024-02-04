@@ -41,12 +41,12 @@ int e1/0
 p1:
 config t
 int e0/0
- ip add dhcp
+ ip add 10.2.1.101 255.255.255.0
  no shut
 p2:
 config t
 int e1/0
- ip add dhcp
+ ip add 10.2.1.102 255.255.255.0
  no shut
 
 Pano mag static Route sa PC:
