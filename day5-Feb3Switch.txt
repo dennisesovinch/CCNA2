@@ -324,34 +324,38 @@ shut
 no shut
 
 TASK16: FHRP:First Hop Redundancy Protocol:
-        " The Rich Kid Problem!"
-HSRP: host standby routing protocol: all Cisco SW
+        " The Rich Kid Problem!" = richKidSolution.
+HSRP: hot standby routing protocol: all Cisco SW:
+    2 or more switches combine to form One virtualIP
 VRRP: virtual router redundancy protocol: any brand
 GLBP: global load balancing protocol: all Cisco Router
 Companies: 2 or 3 telcos:
 @TAAS/PLDTinternet:
 config t
+hostname PLDTITO
 Track 1 Int gi 0/1 line-protocol
 Int vlan 1
-standby 1 ip 10.12.1.6
+standby 1 ip 10.__.1.6
 standby 1 preempt
 standby 1 Priority 150
 standby 1 Track 1 decrement 60
 
 @BABA
 config t
+hostname GLOBE
 Int vlan 1
-standby 1 ip 10.12.1.6
+standby 1 ip 10.__.1.6
 standby 1 preempt
 standby 1 Priority 100
 do sh standby
 
 TASK17: Port-Aggregation/Etherchannel:
-LACP:LINK AGGREGATION CONTROL PROTOCOL = ieee
+LACP:LINK AGGREGATION CONTROL PROTOCOL = ieee worldStandrad
+cisco = PortAggregationProtocl: PaGP
 Combinding Two/More Layer 2 links AS ONE! Unite/UNITY
 @taas/BABA:
 config t
-Int Range fa0/9-12
+Int Range fa0/10-12
  channel-group 1 mode active
  channel-protocol Lacp
  do sh etherchannel summary
