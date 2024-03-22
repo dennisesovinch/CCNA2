@@ -15,30 +15,56 @@ Task1: 5 mins answers:
 	FF00:0:0:BEEF:A00A:AA0:: /8
 
 TASK2: CONFIGURING IPV6 ON CISCO DEVICES:
-method1: Ipv6 autoconfig
-@edge
+method1: Ipv6 autoconfig/autoBwisit
+@p1
 config t
 ipv6 unicast-routing
-int gi 0/0/0
+int e0/0
+ ipv6 enable
+ Ipv6 address autoconfig
+
+@p2
+config t
+ipv6 unicast-routing
+int e1/0
  ipv6 enable
  Ipv6 address autoconfig
 
 method2: EUI-64 method: using the MAc Address
 as host.
-@edge
+@P1
 config t
 ipv6 unicast-routing
-int gi 0/0/1
- ipv6 add ace1:ace2:ace3:1212::/64 EUI-64
+int e0/0
+ no shutdown
+ ipv6 add dada:dada:fafa:fafa::/64 EUI-64
+ do sh ipv6 int brief
+end
+
+@P2
+config t
+ipv6 unicast-routing
+int e1/0
+ no shut
+ ipv6 add dada:dada:fafa:fafa::/64 EUI-64
  do sh ipv6 int brief
 end
 
 Method3: STatic IPv6 address manual:
-@edge
+@p1
 config t
 ipv6 unicast-routing
-int gi 0/0/1
- ipv6 add faca:faba:fada:fafa::1212/64
+int e0/0
+ ipv6 add aaaa:bbbb:cccc:dddd::1212/64
+ do sh ipv6 int brief
+end
+
+@p2
+config t
+ipv6 unicast-routing
+int e1/0
+ no ipv6 add aaaa:bbbb:cccc:dddd::1212/64
+ ipv6 add aaaa:bbbb:cccc:dddd::1313/64
  do sh ipv6 int brief
 end
 
@@ -90,11 +116,11 @@ indicator no.2: if you plug a device=30s
 indicator no.3: Kislap every 1/2 seconds
 
 TASK6: HOW TO GET FIRED IMMEDIATELY!
-@taas:
+@baba:
 config t
  spanning-tree vlan 1
 end
-@baba:
+@taas:
 config t
 spanning-tree vlan 1
 end
@@ -115,7 +141,9 @@ TASK8: ACCESS PORTS VS TRUNK PORTS:
 Trunk Ports: switch to switch:
 TAAS/BABA:
 config t
-Int Range fa0/9-12
+Int Range fa0/10-12
+ shutdown
+ no shutdown
  switchport trunk Encap Dot1Q
  switchport mode trunk
  do sh int trunk
@@ -132,8 +160,8 @@ Config t
 spanning-tree mode pvst
 spanning-tree vlan 1-100 root Primary
 do sh spanning-tree vlan 1
-BABA:/d2
-Config t              32768->   28672
+BABA:/d2         32768->   28672
+Config t              
 spanning-tree mode pvst
 spanning-tree vlan 1-100 root Secondary
 do sh spanning-tree vlan 1
@@ -194,13 +222,22 @@ end
 
 TASK11: Multiple instance STP:
 step1: sync all Vlans with VTP:vlanTrunkingProtocol:
-TAAS/BABA:
+TAAS/BABA: d1/d2:
 config t
 vtp domain ccna
 vtp password pass
 vtp mode server
 vtp version 2
 exit
+
+a1/a2: access SW
+config t
+vtp domain ccna
+vtp password pass
+vtp mode client
+vtp version 1
+exit
+
 
 step2: 
 create vlans:
@@ -227,21 +264,25 @@ spanning-tree mst configuration
    Instance 2 vlan 21-29
    Instance 3 vlan 31-39
 exit
-sh spanning-tree mst configuration 
+do sh spanning-tree mst configuration 
 
 TASK14: MAKE YOUR OWN SUPERMAN BOSSING:
 
 
-@Taas: Make Taas RootBridge again:
+@Taas: Make Taas RootBridge again:/d1
 config t
 spanning-tree mst 0 root primary
-spanning-tree mst 1 root primary
-@baba
+spanning-tree mst 1 root secondary
+spanning-tree mst 2 root primary
+spanning-tree mst 3 root secondary
+@baba/d2
 config t
 spanning-tree mst 0 root Secondary
-spanning-tree mst 1 root Secondary
+spanning-tree mst 1 root primary
+spanning-tree mst 2 root Secondary
+spanning-tree mst 3 root primary
 
-TASK15: Implementing Port-Security in Cisco
+TASK15: Implementing Port-Security in Cisco/bawal Nakaw/bawalPalit.
 Switch:
 baba:
 sh cdp nei
@@ -254,30 +295,30 @@ Guard fa0/5 and fa0/7 so that, no Arduino can
 be connected.
 @BABA
 config t
-Int fa0/5
+Int fa0/6
 switchport mode access
 switchport port-security
 switchport port-security mac-address Sticky
 switchport port-security maximum 1
 switchport port-security violation shutdown
-Int fa0/7
+Int fa0/8
 switchport mode access
 switchport port-security
 switchport port-security mac-address Sticky
 switchport port-security maximum 1
 switchport port-security violation shutdown
 do sh port-security address
-   1    ccd8.c1fb.1045    SecureSticky                  Fa0/5        -
-   1    ccd8.c1fb.2325    SecureSticky
+   1    ccd8.c1fb.1045    SecureSticky                  Fa0/6        -
+   1    ccd8.c1fb.2325    SecureSticky                  Fa0/8
 do sh int status err-disable
 
 @baba: make it alive:
 config t
-Int fa0/5
+Int fa0/6
 NO switchport port-security
 shut
 no shut
-Int fa0/7
+Int fa0/8
 NO switchport port-security
 shut
 no shut
