@@ -68,6 +68,10 @@ int e1/0
  do sh ipv6 int brief
 end
 
+Static Routing In IPv4 and IPv6:
+ip route 0.0.0.0  0.0.0.0 10.m.1.4
+ipv6  route  ::/0   face:cafe:face:cafe::aaaa
+
 TASK3: THE ULTIMATE SKILL FOR A NETWORK ENGINEER.
 Top 5 brands:
 1.Cisco = 75% =google,aws,azure,etc,
