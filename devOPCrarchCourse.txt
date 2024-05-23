@@ -7,7 +7,8 @@ pip install requests
 #Task1
 enable IOX:
 
-enableLinuxdockersinCSR1000v
+Bigayan ng Alak,Droga,Escatisy,ruby is Cisco para lumabas ang
+PYTHON, LINUXBASH, RESTAPI, NETCONF.
 !!
 config t
 iox
