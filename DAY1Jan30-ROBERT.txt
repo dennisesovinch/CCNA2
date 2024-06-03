@@ -126,7 +126,14 @@ Int Fa 0/7
   switchport mode access
   switchport access vlan 100    
  end
- 
+
+ip dhcp pool CAMERA6
+host 10._.50.6 255.255.255.0
+client-identifier aaaa.bbbb.cccc
+ip dhcp pool CAMERA8
+host 10._.50.8 255.255.255.0
+client-identifier cccc.dddd.aaaa
+
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
@@ -223,6 +230,7 @@ ip address trusted list
 ipv4 0.0.0.0 0.0.0.0
 exit
 
+!OUTGOING CALL FROM CUCM TO OTHER CUCM.
 configure terminal
 ! dial-peer voice 11 Voip
 ! destination-pattern 11..
@@ -292,7 +300,7 @@ dial-peer voice 82 Voip
 @@@@@@
 !@@@EDGE ROUTE CONFIG
 config t
-   hostname EDGE12
+   hostname EDGE-m
    enable secret pass
    service password-encryption
    no logging console
@@ -307,20 +315,20 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10.12.12.1 255.255.255.0
+     ip add 10.m.m.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0.12 255.255.255.0
+	 ip add 200.0.0.m 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add 12.0.0.1 255.255.255.255
+	 ip add m.0.0.1 255.255.255.255
  end
 
- 
+ !!!STATIC ROUTING FOR MININUM WAGERS: 575php/day
  !!! EDGE route NOT dikit to ClassMate:
-  conf t
+conf t
  ip routing 
 !ip route 10.11.0.0 255.255.0.0 200.0.0.11
  ip route 10.12.0.0 255.255.0.0 200.0.0.12
@@ -342,14 +350,14 @@ config t
  end
  
 *********************************************
-ROUTING 
+Layer three/3 switch ROUTING = 300k up!!!
 @SWITCH/COREBABA
 conf t 
 ip routing
 ip route 0.0.0.0 0.0.0.0 10._._.1
 end
 
-@CUCM
+@CUCM:DEFAULT ROUTING( 0.0.0.0 0.0.0.0) FOR CUCM:
 conf t
 ip routing
 ip route 0.0.0.0 0.0.0.0 10._.100.4
@@ -357,8 +365,8 @@ end
 
 !How to Static Route windows Server:
 cmd
-route  add   10.0.0.0   mask   255.0.0.0    10.m.1.4
-route  add  200.0.0.0   mask  255.255.255.0   10.m.1.4
+route  add   10.0.0.0   mask   255.0.0.0    10._.1.4
+route  add  200.0.0.0   mask  255.255.255.0   10._.1.4
 
 ********************************************
 
