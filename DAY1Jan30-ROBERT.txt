@@ -404,10 +404,10 @@ application
   param aa-pilot _69
  service rivanqueue flash:app-b-acd-3.0.0.2.tcl
   param queue-len 15
-  param aa-hunt1 1200
-  param aa-hunt2 1201
-  param aa-hunt3 1277
-  param aa-hunt4 1233
+  param aa-hunt1 _00
+  param aa-hunt2 _01
+  param aa-hunt3 _77
+  param aa-hunt4 _33
   param queue-manager-debugs 1
   param number-of-hunt-grps 4
 ****************************************************************************
