@@ -184,6 +184,8 @@ ip host cm 10.m.100.8
 ip host cm2 10.m.100.9
 ip host p1 10.m.100.101
 ip host p2 10.m.100.102
+ip host c6 10.m.50.6
+ip host c8 10.m.50.8
 ip host sw 10.m.1.4
 ip host ed 10.m.m.1
 
@@ -198,6 +200,62 @@ Top 5 UTM: 1.FortinetFortigate:
            1.1: Palo Alto:superSuplado
            2. Checkpoint
            3.4 Cisco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 TASK8: CONGigure YOur first Packet Filter Firewall.
  FORMULA: "  Protocol    hacker   victim  Port "
@@ -237,16 +295,16 @@ IP access-list Extended fwpolicy1
   end
 
 ex.2: Make a Firewall so that we can meet this fwpolicy2:
-cm is a ssh,cucm/sccp,web
-cm2 is secureWEB, 23, dns
+cm is a ssh,https,web
+cm2 is https, 23, dns
 create a fwpolicy2 Policy to meet his condition.
 
-nmap -v cm       nmap -v cm2
-22               443
-2000             23
-80               53
+nmap -Pn -v cm       nmap Pn -v cm2
+22                      443
+443                    23
+80                      53
 
-ex.2: Make a Firewall so that we can meet this fwpolicy3:
+ex3: Make a Firewall so that we can meet this fwpolicy3:
 cm is a ping,cucm/sccp,
 cm2 is  ssh,web,dns,finger
 create a fwpolicy3 Policy to meet his condition.
