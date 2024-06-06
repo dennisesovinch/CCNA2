@@ -63,11 +63,11 @@ ex.1: show ip int brief
 #!/usr/bin/env python
 import cli
 
-commands = [
+cmd_1 = [
     "show ip int brief",
 ]
 
-for c in commands:
+for c in cmd_1:
     cli.executep(c)
 	
 	
@@ -99,16 +99,16 @@ ex.4: python configuration:
 #!/usr/bin/env python
 import cli
 
-rob_cm = '''hostname CSRPYTHON
+config_1 = '''hostname RobROuter
 '''
 
-cli.configurep(rob_cm)
+cli.configurep(config_1)
 
 ex.5: Create 4 loopbacks:
 
 import cli
 
-hi_1 = '''hostname PYDEVOP_AKO
+config_2 = '''hostname Mr_Robert
 int loop 9
 ip add 9.9.9.9 255.255.255.255
 int loop 8
@@ -118,11 +118,11 @@ ip add 7.7.7.7 255.255.255.255
 end
 '''
 
-cli.configurep(hi_1)
+cli.configurep(config_2)
 
 ex.6
 
-TASK2: ENABLE RESTAPI: with POSTMAN:
+TASK2: ENABLE RESTAPI: with POSTMAN: API, APPI PROG INTERFACE.
 
 config t
 ip http secure-server
@@ -154,16 +154,16 @@ headers:
 	Content-Type: application/yang-data+json
 
 GET:
-https://192.168.152.128/restconf/data/ietf-interfaces:interfaces
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native?depth=1
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native?depth=2
+https://192.168.102.7/restconf/data/ietf-interfaces:interfaces
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native?depth=1
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native?depth=2
 
 GET the hostname and version:
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/version
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/hostname
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native/version
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native/hostname
 
-https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/interface/Loopback=0
+https://192.168.102.7/restconf/data/Cisco-IOS-XE-native:native/interface/Loopback=0
 
 GET
 https://192.168.152.128/restconf/data/Cisco-IOS-XE-native:native/license
