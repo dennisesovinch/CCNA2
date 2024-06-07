@@ -317,6 +317,9 @@ do sh port-security address
    1    ccd8.c1fb.2325    SecureSticky                  Fa0/8
 do sh int status err-disable
 
+Port      Name               Status       Reason               Err-disabled Vlans
+Fa0/6                        err-disabled psecure-violation
+Fa0/8                        err-disabled psecure-violation
 @baba: make it alive:
 config t
 Int fa0/6
