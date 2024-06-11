@@ -101,7 +101,7 @@ ip route  192.168.1.129 255.255.255.255 10.2.1.1
 do sh ip route static
 Pano mag static Route sa PC:
 cmd
-route  add 10.m.0.0 mask 255.255.0.0 10.m.1.4 -p
+route  add 10.32.0.0 mask 255.255.0.0 10.32.1.4 -p
 
 How to Create Default Route Cisco/PC/EndDevices:
 p1:
